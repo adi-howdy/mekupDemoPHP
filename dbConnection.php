@@ -13,13 +13,13 @@ $connection = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname );
 
 function dbConnect() {
     $conn = mysqli_connect(DBHOST, DBUSER, DBPASS, DATABASE);
-    echo "Connecting to database....";
+    //echo "Connecting to database....";
     return $conn;
 }
 
 function dbDisconnect($conn){
     if($isset($conn)){
-        echo "Disconnecting to database... ";
+        //echo "Disconnecting to database... ";
         mysqli_close($conn);
     }
 }

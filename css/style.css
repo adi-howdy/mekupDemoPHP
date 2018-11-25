@@ -58,8 +58,10 @@ body {
   
   }
 
+  h1.hidden {
+    display: none;
+}
 
- 
 
   .drop-item{
     background-color: black;
@@ -245,6 +247,8 @@ body {
   margin: 0;
   padding: 0;
 }
+
+
 
 /*from https://www.lynda.com/Developer-Mobile-Web-tutorials/Controlling-gallery-styling/114899/124377-4.html?srchtrk=index%3a2%0alinktypeid%3a2%0aq%3aimage+gallery%0apage%3a1%0as%3arelevance%0asa%3atrue%0aproducttypeid%3a2*/
 

@@ -6,10 +6,22 @@ $result1 =  mysqli_query(dbConnect(), $sql);
 //select location from database  to send it to the form 
 $options = "";
 while ($row2 = mysqli_fetch_assoc($result1)){
-    $options = $options."<option value = $row2[location]>$row2[location]</option>";
+    $options = $options."<option name = 'option123' value = $row2[location]>$row2[location]</option>";
 }
 
+/*
+$sql_date = "select date, shift from schedule where location = '" .  ;
 
+$result_Date = mysqli_query(dbConnect(), $sql_date);
+$options_date = "";
+$options_shift = "";
+
+while($row3=mysqli_fetch_assoc($result_Date)){
+    $options_date = $options_date."<option value = $row3[date]>$row3[date]</option>";
+    $options_shift = $options_shift."<option value = $row3[shift]>$row3[shift]</option>";
+}
+
+*/
 
 ?>
 
@@ -28,8 +40,34 @@ while ($row2 = mysqli_fetch_assoc($result1)){
     <link href="https://fonts.googleapis.com/css?family=Italianno|Srisakdi" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-
+<style>
+.hidden {
+    display: none;
+}
+</style>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="js/myscript.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#messageType').on('change', function(){
+            var location = $(this).val();
+            if(location){
+                $.ajax({
+                    type:'post',
+                    url:'ajaxData.php',
+                    data:'location='+ location,
+                    success:function(html){
+                   // $('#messageType_date').html('<option>Please select Date..</option>');
+                    $('#messageType_date').html(html); 
+                    }     
+                });
+            }
+        });
+    });
+</script>
 <body>
+
+
     <header>
         <nav class="navbar navbar-expand-md  fixed-top navbar-inverse navbar-dark" id="ftco-navbar">
             <div class="container-fluid">
@@ -89,7 +127,11 @@ while ($row2 = mysqli_fetch_assoc($result1)){
                     you via Call</p>
             </header>
            
-                                        
+         <div id= "dateRegistered123">
+         Here should be the result of ajax function.
+         </div>
+
+
             <div id="sub-main">
                 <section class="main">
                     <article class="registrationform">
@@ -97,37 +139,68 @@ while ($row2 = mysqli_fetch_assoc($result1)){
                             <fieldset id="personalinfo">
                                 <legend>Personal Info</legend>
 
-                                <section>
-                                    <label class="control-label" for="id">Location</label>
-                                    <div class="controls">
-
- <select>
-                                            <!--TO select data from database in form from the method given above-->
-                                            <option value="not selected">Please select location..</option>
-                                            <?php echo  $options; ?>
-                                        </select>
-
-                                        
-                                    </div>
-                                </section>
 
 <!--
+<section>
+<div>
+         <select name= "messagetype" id= "messagetype" 
+         onchange="fun_showtextbox()">
+         <option disabled="">select it</option>
+         <option value="All">Send to all</option>
+         <option value="Personal">Send to Personal</option>
+         </select>
+         
+         </div>
+         </section>
+         <section>
+
+         <div style="display: none;" id ="mobileno_textbox">
+            <lable class="control-lable">Mobilenumber</label> 
+            <input type = "text" name="mobileno" id = "mobileno" class="form-control">        
+         </div>
+
+</section>
+-->
                                 <section>
-                                    <label class="control-label" for="id">Number of People</label>
+                                    <label class="control-label location" for="id">Location</label>
                                     <div class="controls">
+
+                                        <select id="messageType" name = "messageType" onchange="showDate()">
+                                            <!--TO select data from database in form from the method given above-->
+                                            <option value="notselected" name = "option123">Please select location..</option>
+                                            <?php echo  $options; ?> 
+                                        </select>          
+                                    </div>
+                                </section>
+                                <section>
+                                <div style="display: none;" id = "peopleCount" >
+                                    <label class="control-label">Number of People</label>
                                         <input class="form-control" type="number"  name="people" id="people" autofocus placeholder="Number of People">
                                     </div>
                                 </section>
--->
-                                
-<!--
                                 <section>
-                                    <label class="control-label" for="id">Date</label>
+                                <div style="display: none;" id = "dateRegistered" >
+                                    <label class="control-label">Date</label>
                                     <div class="controls">
-                                        <input class="form-control" type="date"  name="date" id="date" autofocus placeholder="Date">
+                                    <select id="messageType_date" name = "messageType">
+    
+                                            </select>
+                                    </div>
                                     </div>
                                 </section>
--->
+
+                                <section>
+                                <div style="display: none;" id = "shiftRegistered" >
+                                    <label class="control-label">Shift</label>
+                                    <div class="controls">
+                                    <select id="messageType_shift" name = "messageType">
+                                    <option value="notselected" name = "option123">Please select shift..</option>
+                                            <?php echo  $options_shift; ?> 
+                                            </select>
+                                    </div>
+                                    </div>
+                                </section>
+
                                 
 
                                 
@@ -173,14 +246,15 @@ while ($row2 = mysqli_fetch_assoc($result1)){
 
 
 
-    <!-- loader -->
+    <!-- loader <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>-->
 
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
         crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
+    
 
 
 </body>
