@@ -54,15 +54,32 @@ while($row3=mysqli_fetch_assoc($result_Date)){
             if(location){
                 $.ajax({
                     type:'post',
-                    url:'ajaxData.php',
+                    url:'ajaxDate.php',
                     data:'location='+ location,
                     success:function(html){
-                   // $('#messageType_date').html('<option>Please select Date..</option>');
-                    $('#messageType_date').html(html); 
+                    $('#messageType_date').html(html);
+                    $('#messageType_shift').html("<option value='notSelected'>Please select Shift..</option>"); 
                     }     
                 });
+            
+                $('#messageType_date').on('change', function(){
+        var date = $(this).val();
+        if(date){
+            $.ajax({
+                type: 'post',
+                url: 'ajaxShift.php',
+                data: 'date=' + date + '&location=' + location,
+                success:function(html){
+                    $('#messageType_shift').html(html);
+                }
+            });
+        }
+    });
+
             }
         });
+    
+   
     });
 </script>
 <body>
@@ -194,8 +211,7 @@ while($row3=mysqli_fetch_assoc($result_Date)){
                                     <label class="control-label">Shift</label>
                                     <div class="controls">
                                     <select id="messageType_shift" name = "messageType">
-                                    <option value="notselected" name = "option123">Please select shift..</option>
-                                            <?php echo  $options_shift; ?> 
+    
                                             </select>
                                     </div>
                                     </div>
