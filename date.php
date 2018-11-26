@@ -6,7 +6,7 @@ $result1 =  mysqli_query(dbConnect(), $sql);
 //select location from database  to send it to the form 
 $options = "";
 while ($row2 = mysqli_fetch_assoc($result1)){
-    $options = $options."<option name = 'option123' value = $row2[location]>$row2[location]</option>";
+    $options = $options."<option name = 'location' value = $row2[location]>$row2[location]</option>";
 }
 
 /*
@@ -178,13 +178,54 @@ while($row3=mysqli_fetch_assoc($result_Date)){
 
 </section>
 -->
+
+
+                               
+
+                                <section>
+                                    <label class="control-label" for="name">Name</label>
+                                    <div class="controls">
+                                        <input class="form-control" type="text"  name="name" id="name" autofocus placeholder="Full Name">
+                                    </div>
+                                </section>
+                                <!--
+                                <section>
+                                    <label class="control-label" for="age">Age</label>
+                                    <div class="controls">
+                                        <input class="form-control" type="text" th:field="*{age}" name="age" id="myage" autofocus placeholder="Age">
+                                    </div>
+                                </section>
+
+                                <section>
+                                    <label class="control-label" for="address">Address</label>
+                                    <div class="controls">
+                                        <input class="form-control" type="text" th:field="*{address}" name="myaddress" id="myaddress" autofocus placeholder="Address">
+                                    </div>
+                                </section>
+                                -->
+
+                                <section>
+                                    <label class="control-label" for="email">Email</label>
+                                    <div class="controls">
+                                        <input class="form-control" type="text" name="email" id="email"  autofocus placeholder="Email address">
+                                    </div>
+                                </section>
+
+
+                                <section>
+                                    <label class="control-label" for="phone">Phone Number
+                                    </label>
+                                    <div class="controls">
+                                        <input class="form-control" type="text" name="phone" id="phone" autofocus placeholder="Cell Phone">
+                                    </div>
+                                </section>
                                 <section>
                                     <label class="control-label location" for="id">Location</label>
                                     <div class="controls">
 
                                         <select id="messageType" name = "messageType" onchange="showDate()">
                                             <!--TO select data from database in form from the method given above-->
-                                            <option value="notselected" name = "option123">Please select location..</option>
+                                            <option value="notselected" name = "location">Please select location..</option>
                                             <?php echo  $options; ?> 
                                         </select>          
                                     </div>
@@ -199,7 +240,7 @@ while($row3=mysqli_fetch_assoc($result_Date)){
                                 <div style="display: none;" id = "dateRegistered" >
                                     <label class="control-label">Date</label>
                                     <div class="controls">
-                                    <select id="messageType_date" name = "messageType">
+                                    <select id="messageType_date" name = "messageType_date">
     
                                             </select>
                                     </div>
@@ -210,7 +251,7 @@ while($row3=mysqli_fetch_assoc($result_Date)){
                                 <div style="display: none;" id = "shiftRegistered" >
                                     <label class="control-label">Shift</label>
                                     <div class="controls">
-                                    <select id="messageType_shift" name = "messageType">
+                                    <select id="messageType_shift" name = "messageType_shift">
     
                                             </select>
                                     </div>
